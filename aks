@@ -1,1 +1,60 @@
 
+AZ-
+
+az group list --query "[?name=='rahul-aks-rg']" -o table
+
+#create SP 
+￼
+{
+  "appId": "0cef78cd-8934-4f0c-91d2-16720a85c31c",
+  "displayName": "azure-cli-2020-10-28-04-19-35",
+  "name": "http://azure-cli-2020-10-28-04-19-35",
+  "password": "6866974e-91b2-4436-aad4-c204197b35fe",
+  "tenant": "690d13e5-628a-4189-b01a-abce469fa0e6"
+}
+
+2. Create a ACR by using below command——
+3.  az acr create --resource-group rahul-aks-rg --name rahulacrtest --sku Basic --admin-enabled true
+
+### assigns role for ACR to pull images —
+az role assignment  create --assignee 0cef78cd-8934-4f0c-91d2-16720a85c31c --role acrpull --scope /subscriptions/8eab492d-fb72-4efb-8497-dac3e67650da/resourceGroups/rahul-aks-rg/providers/Microsoft.ContainerRegistry/registries/rahulacrtest
+
+
+### Docker image bull and push to Azure ACR
+az acr build --image rahulwebsrv:v1 --registry rahulacrtest --file Dockerfile .
+
+## create k8s cluster
+az aks create --resource-group rahul-aks-rg --name rahulakscluster --node-count 1 --enable-addon monitoring --generate-ssh-keys --service-principal "0cef78cd-8934-4f0c-91d2-16720a85c31c" --client-secret "6866974e-91b2-4436-aad4-c204197b35fe"
+
+## get AKS credentials 
+az aks get-credentials -g rahul-aks-rg --name rahulakscluster
+
+##kubectl config get-clusters
+## kubectl config current-context
+## switch cluster- 
+kubectl config use-context rahulakscluster
+
+### cluster role binding
+kubectl get clusterrolebinding
+
+
+az aks create \
+    --resource-group rahul-network-test \
+    --name kubenetCluster \
+    --node-count 3 \
+    --network-plugin kubenet \
+    --service-cidr 172.0.0.0/16 \
+    --dns-service-ip 172.0.0.10 \
+    --pod-cidr 172.244.0.0/16 \
+    --docker-bridge-address 172.99.0.1/16 \
+    --vnet-subnet-id $SUBNET_ID \
+    --service-principal "0cef78cd-8934-4f0c-91d2-16720a85c31c" \
+    --client-secret "6866974e-91b2-4436-aad4-c204197b35fe"
+
+# Create AKS using network policy
+
+￼
+Set name space as default- for every resource creation-
+
+￼
+
