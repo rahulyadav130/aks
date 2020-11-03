@@ -4,7 +4,8 @@ AZ-
 az group list --query "[?name=='rahul-aks-rg']" -o table
 
 #create SP 
-￼
+￼# az ad sp create-for-rbac --skip-assignment
+
 {
   "appId": "0cef78cd-8934-4f0c-91d2-16720a85c31c",
   "displayName": "azure-cli-2020-10-28-04-19-35",
