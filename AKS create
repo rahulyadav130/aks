@@ -1,0 +1,37 @@
+Lab - Deploying Azure Kubernetes - Commands
+The app.yml and service.yml file are added to a zip file added as a resource to this chapter
+
+You can use the below commands to work with Azure Kubernetes
+
+// Create a new resource group
+
+az group create --name kubernetes --location eastus
+
+// Create a new Kubernetes cluster
+
+az aks create --resource-group kubernetes --name companycluster --node-count 1 --enable-addons monitoring --generate-ssh-keys
+
+// Install the kubectl tool
+
+az aks install-cli --install-location=./kubectl
+
+// Get the credentials of the cluster
+
+az aks get-credentials --resource-group kubernetes --name companycluster
+
+// Get the nodes running in the cluster
+
+kubectl get nodes
+
+// Apply the application configuration file
+
+kubectl apply -f app.yml
+
+// Apply the sercive configuration file
+
+kubectl apply -f service.yml
+
+// Get the list of services running in Kubernetes
+
+kubectl get services
+
