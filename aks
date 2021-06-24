@@ -7,18 +7,18 @@ az group list --query "[?name=='rahul-aks-rg']" -o table
 ￼# az ad sp create-for-rbac --skip-assignment
 
 {
-  "appId": "0cef78cd-8934-4f0c-91d2-16720a85c31c",
+  "appId": "**********************************",
   "displayName": "azure-cli-2020-10-28-04-19-35",
   "name": "http://azure-cli-2020-10-28-04-19-35",
-  "password": "6866974e-91b2-4436-aad4-c204197b35fe",
-  "tenant": "690d13e5-628a-4189-b01a-abce469fa0e6"
+  "password": "**********************************",
+  "tenant": "*************************************"
 }
 
 2. Create a ACR by using below command——
 3.  az acr create --resource-group rahul-aks-rg --name rahulacrtest --sku Basic --admin-enabled true
 
 ### assigns role for ACR to pull images —
-az role assignment  create --assignee 0cef78cd-8934-4f0c-91d2-16720a85c31c --role acrpull --scope /subscriptions/8eab492d-fb72-4efb-8497-dac3e67650da/resourceGroups/rahul-aks-rg/providers/Microsoft.ContainerRegistry/registries/rahulacrtest
+az role assignment  create --assignee 0cef78cd-8934-4f0c-91d2-16720a85c31c --role acrpull --scope /subscriptions/8eab49******************/resourceGroups/rahul-aks-rg/providers/Microsoft.ContainerRegistry/registries/rahulacrtest
 
 
 ### Docker image bull and push to Azure ACR
